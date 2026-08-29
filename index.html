@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>학교 시험 문제 만들기</title>
+
+    <!-- CSS 연결 -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- =========================
+         헤더
+    ========================== -->
+
+    <header class="header">
+
+        <p class="eyebrow">
+            SCHOOL EXAM
+        </p>
+
+        <h1>
+            📚 학교 시험 문제 만들기
+        </h1>
+
+        <p>
+            학년, 과목, 단원을 선택하고 문제를 풀어보세요.
+        </p>
+
+    </header>
+
+
+    <main>
+
+        <!-- =========================
+             설정 화면
+        ========================== -->
+
+        <section
+            id="setup-screen"
+            class="card"
+        >
+
+            <!-- 학년 -->
+
+            <div class="step">
+
+                <h2>
+                    1. 학년 선택
+                </h2>
+
+                <div
+                    id="grade-list"
+                    class="button-grid"
+                >
+
+                    <button
+                        class="select-btn"
+                        data-grade="1"
+                    >
+                        1학년
+                    </button>
+
+                    <button
+                        class="select-btn"
+                        data-grade="2"
+                    >
+                        2학년
+                    </button>
+
+                    <button
+                        class="select-btn"
+                        data-grade="3"
+                    >
+                        3학년
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- 과목 -->
+
+            <div class="step">
+
+                <h2>
+                    2. 과목 선택
+                </h2>
+
+                <div
+                    id="subject-list"
+                    class="button-grid"
+                >
+
+                    <p class="guide">
+                        먼저 학년을 선택해 주세요.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- 단원 -->
+
+            <div class="step">
+
+                <h2>
+                    3. 단원 선택
+                </h2>
+
+                <div
+                    id="unit-list"
+                    class="button-grid"
+                >
+
+                    <p class="guide">
+                        먼저 과목을 선택해 주세요.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- 문제 설정 -->
+
+            <div class="settings">
+
+                <div class="setting">
+
+                    <label for="count">
+                        문제 수
+                    </label>
+
+<select id="count">
+    <option value="5">5문제</option>
+</select>
+
+                </div>
+
+
+                <div class="setting">
+
+                    <label for="type">
+                        문제 유형
+                    </label>
+
+                    <select id="type">
+
+                        <option value="multiple">
+                            객관식
+                        </option>
+
+                        <option value="ox">
+                            O / X
+                        </option>
+
+                        <option value="short">
+                            주관식
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- 문제 만들기 -->
+
+            <button
+                id="start-btn"
+                class="primary-btn"
+            >
+                문제 만들기
+            </button>
+
+
+            <p
+                id="setup-message"
+                class="message"
+            ></p>
+
+        </section>
+
+
+
+        <!-- =========================
+             문제 풀이 화면
+        ========================== -->
+
+        <section
+            id="quiz-screen"
+            class="hidden"
+        >
+
+            <div class="quiz-header">
+
+                <button
+                    id="back-btn"
+                    class="ghost-btn"
+                >
+                    ← 설정으로
+                </button>
+
+
+                <div class="progress">
+
+                    <span id="progress-text">
+                        1 / 5
+                    </span>
+
+                    <div class="progress-bar">
+
+                        <div
+                            id="progress-fill"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="score">
+
+                    점수
+                    <strong id="live-score">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="card question-card">
+
+                <div class="meta">
+
+                    <span id="quiz-info">
+                        1학년 · 수학 · 1단원
+                    </span>
+
+                </div>
+
+
+                <h2 id="question-text">
+                    문제가 표시됩니다.
+                </h2>
+
+
+                <div id="answer-area">
+                </div>
+
+
+                <p
+                    id="feedback"
+                    class="feedback"
+                ></p>
+
+
+                <button
+                    id="submit-btn"
+                    class="primary-btn"
+                >
+                    정답 확인
+                </button>
+
+
+                <button
+                    id="next-btn"
+                    class="secondary-btn hidden"
+                >
+                    다음 문제
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             결과 화면
+        ========================== -->
+
+        <section
+            id="result-screen"
+            class="card result hidden"
+        >
+
+            <div class="result-icon">
+                🎉
+            </div>
+
+
+            <p class="eyebrow">
+                RESULT
+            </p>
+
+
+            <h2>
+                문제 풀이 완료!
+            </h2>
+
+
+            <div class="final-score">
+
+                <span id="final-score">
+                    0
+                </span>
+
+                <small>
+                    점
+                </small>
+
+            </div>
+
+
+            <p id="result-summary">
+            </p>
+
+
+            <div class="result-grid">
+
+                <div>
+
+                    <span>
+                        맞힌 문제
+                    </span>
+
+                    <strong id="correct-count">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        틀린 문제
+                    </span>
+
+                    <strong id="wrong-count">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        선택 단원
+                    </span>
+
+                    <strong id="result-unit">
+                        -
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <button
+                id="retry-btn"
+                class="primary-btn"
+            >
+                다시 풀기
+            </button>
+
+
+            <button
+                id="home-btn"
+                class="secondary-btn"
+            >
+                다른 선택하기
+            </button>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+        학교 시험 대비 문제 풀이 프로젝트
+    </footer>
+
+</div>
+
+
+<!-- JavaScript 연결 -->
+<script src="script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,953 @@
+/* ========================================
+   기본 설정
+======================================== */
+
+* {
+    box-sizing: border-box;
+
+    margin: 0;
+    padding: 0;
+}
+
+
+:root {
+
+    --background: #f5f7fb;
+
+    --card: #ffffff;
+
+    --text: #202632;
+
+    --muted: #70798a;
+
+    --line: #e4e8ef;
+
+    --primary: #4f46e5;
+
+    --primary-light: #eef2ff;
+
+    --success: #16a34a;
+
+    --success-light: #ecfdf3;
+
+    --danger: #dc2626;
+
+    --danger-light: #fef2f2;
+}
+
+
+body {
+
+    min-height: 100vh;
+
+    background:
+        var(--background);
+
+    color:
+        var(--text);
+
+    font-family:
+        Arial,
+        "Noto Sans KR",
+        sans-serif;
+
+    line-height: 1.5;
+}
+
+
+button,
+select,
+input {
+
+    font: inherit;
+}
+
+
+
+/* ========================================
+   전체
+======================================== */
+
+.app {
+
+    width: min(900px, 92%);
+
+    margin: 0 auto;
+
+    padding:
+        40px 0
+        25px;
+}
+
+
+
+/* ========================================
+   헤더
+======================================== */
+
+.header {
+
+    text-align: center;
+
+    margin-bottom: 30px;
+}
+
+
+.eyebrow {
+
+    color:
+        var(--primary);
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: .15em;
+
+    margin-bottom: 8px;
+}
+
+
+.header h1 {
+
+    font-size:
+        clamp(28px, 5vw, 40px);
+
+    margin-bottom: 10px;
+}
+
+
+.header > p:last-child {
+
+    color:
+        var(--muted);
+
+    font-size: 15px;
+}
+
+
+
+/* ========================================
+   카드
+======================================== */
+
+.card {
+
+    background:
+        var(--card);
+
+    border:
+        1px solid
+        var(--line);
+
+    border-radius:
+        18px;
+
+    padding:
+        28px;
+
+    box-shadow:
+        0 12px 30px
+        rgba(20, 30, 50, 0.07);
+}
+
+
+
+/* ========================================
+   설정 단계
+======================================== */
+
+.step {
+
+    padding-bottom: 25px;
+
+    margin-bottom: 25px;
+
+    border-bottom:
+        1px solid
+        var(--line);
+}
+
+
+.step h2 {
+
+    font-size: 20px;
+
+    margin-bottom: 14px;
+}
+
+
+
+/* ========================================
+   선택 버튼
+======================================== */
+
+.button-grid {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+}
+
+
+.select-btn {
+
+    border:
+        2px solid
+        var(--line);
+
+    background: white;
+
+    border-radius:
+        12px;
+
+    padding:
+        13px 20px;
+
+    cursor: pointer;
+
+    font-weight: 700;
+
+    color:
+        var(--text);
+
+    transition:
+        0.15s ease;
+}
+
+
+.select-btn:hover {
+
+    border-color:
+        #bfc5ff;
+
+    transform:
+        translateY(-1px);
+}
+
+
+.select-btn.active {
+
+    color:
+        var(--primary);
+
+    background:
+        var(--primary-light);
+
+    border-color:
+        var(--primary);
+}
+
+
+
+/* ========================================
+   안내 문구
+======================================== */
+
+.guide {
+
+    color:
+        var(--muted);
+
+    font-size: 14px;
+}
+
+
+
+/* ========================================
+   문제 설정
+======================================== */
+
+.settings {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 15px;
+
+    margin-bottom: 20px;
+}
+
+
+.setting label {
+
+    display: block;
+
+    font-weight: 700;
+
+    margin-bottom: 8px;
+}
+
+
+select {
+
+    width: 100%;
+
+    background: white;
+
+    border:
+        1px solid
+        var(--line);
+
+    border-radius:
+        11px;
+
+    padding:
+        12px;
+
+    color:
+        var(--text);
+
+    cursor: pointer;
+}
+
+
+
+/* ========================================
+   공통 버튼
+======================================== */
+
+.primary-btn,
+.secondary-btn {
+
+    width: 100%;
+
+    border: none;
+
+    border-radius:
+        12px;
+
+    padding:
+        14px;
+
+    cursor: pointer;
+
+    font-weight: 700;
+}
+
+
+.primary-btn {
+
+    background:
+        var(--primary);
+
+    color: white;
+
+    transition:
+        0.15s ease;
+}
+
+
+.primary-btn:hover {
+
+    filter:
+        brightness(.96);
+
+    transform:
+        translateY(-1px);
+}
+
+
+.secondary-btn {
+
+    background:
+        white;
+
+    border:
+        1px solid
+        var(--line);
+
+    color:
+        var(--text);
+
+    margin-top: 10px;
+}
+
+
+.secondary-btn:hover {
+
+    background:
+        #f9fafb;
+}
+
+
+.ghost-btn {
+
+    border: none;
+
+    background: transparent;
+
+    color:
+        var(--muted);
+
+    cursor: pointer;
+
+    font-weight: 600;
+}
+
+
+
+/* ========================================
+   메시지
+======================================== */
+
+.message {
+
+    min-height: 21px;
+
+    margin-top: 10px;
+
+    text-align: center;
+
+    color:
+        var(--danger);
+
+    font-size: 14px;
+}
+
+
+
+/* ========================================
+   숨김
+======================================== */
+
+.hidden {
+
+    display: none !important;
+}
+
+
+
+/* ========================================
+   문제 화면
+======================================== */
+
+.quiz-header {
+
+    display: grid;
+
+    grid-template-columns:
+        auto 1fr auto;
+
+    align-items: center;
+
+    gap: 16px;
+
+    margin-bottom: 16px;
+}
+
+
+.progress {
+
+    text-align: center;
+}
+
+
+.progress > span {
+
+    color:
+        var(--muted);
+
+    font-size: 14px;
+}
+
+
+.progress-bar {
+
+    height: 8px;
+
+    background:
+        #e7eaf0;
+
+    border-radius:
+        999px;
+
+    overflow: hidden;
+
+    margin-top: 7px;
+}
+
+
+#progress-fill {
+
+    width: 0%;
+
+    height: 100%;
+
+    background:
+        var(--primary);
+
+    transition:
+        width .25s ease;
+}
+
+
+.score {
+
+    padding:
+        8px 13px;
+
+    background:
+        white;
+
+    border:
+        1px solid
+        var(--line);
+
+    border-radius:
+        999px;
+
+    font-size: 14px;
+
+    white-space: nowrap;
+}
+
+
+.score strong {
+
+    color:
+        var(--primary);
+
+    margin-left: 3px;
+}
+
+
+
+/* ========================================
+   문제
+======================================== */
+
+.question-card {
+
+    margin-bottom: 0;
+}
+
+
+.meta {
+
+    display: inline-block;
+
+    padding:
+        6px 11px;
+
+    margin-bottom: 18px;
+
+    border-radius:
+        999px;
+
+    background:
+        var(--primary-light);
+
+    color:
+        var(--primary);
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+
+#question-text {
+
+    white-space: pre-line;
+
+    font-size:
+        clamp(21px, 4vw, 28px);
+
+    line-height: 1.6;
+
+    margin-bottom: 24px;
+}
+
+
+
+/* ========================================
+   보기
+======================================== */
+
+.answer-options {
+
+    display: grid;
+
+    gap: 11px;
+}
+
+
+.answer-option {
+
+    width: 100%;
+
+    text-align: left;
+
+    border:
+        2px solid
+        var(--line);
+
+    background:
+        white;
+
+    border-radius:
+        12px;
+
+    padding:
+        15px 16px;
+
+    cursor: pointer;
+
+    font-size: 16px;
+
+    color:
+        var(--text);
+
+    transition:
+        .15s ease;
+}
+
+
+.answer-option:hover:not(:disabled) {
+
+    border-color:
+        #c6cbff;
+
+    background:
+        #fafaff;
+}
+
+
+.answer-option.selected {
+
+    border-color:
+        var(--primary);
+
+    background:
+        var(--primary-light);
+}
+
+
+.answer-option.correct {
+
+    border-color:
+        var(--success);
+
+    background:
+        var(--success-light);
+}
+
+
+.answer-option.wrong {
+
+    border-color:
+        var(--danger);
+
+    background:
+        var(--danger-light);
+}
+
+
+.answer-option:disabled {
+
+    cursor:
+        default;
+}
+
+
+
+/* ========================================
+   주관식
+======================================== */
+
+.short-answer {
+
+    width: 100%;
+
+    padding:
+        15px;
+
+    border:
+        2px solid
+        var(--line);
+
+    border-radius:
+        12px;
+
+    outline: none;
+
+    font-size: 16px;
+
+    color:
+        var(--text);
+}
+
+
+.short-answer:focus {
+
+    border-color:
+        var(--primary);
+}
+
+
+.short-answer:disabled {
+
+    background:
+        #f8f9fb;
+}
+
+
+
+/* ========================================
+   피드백
+======================================== */
+
+.feedback {
+
+    min-height: 28px;
+
+    margin:
+        17px 0;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+}
+
+
+.correct-text {
+
+    color:
+        var(--success);
+
+    font-weight: 700;
+}
+
+
+.wrong-text {
+
+    color:
+        var(--danger);
+
+    font-weight: 700;
+}
+
+
+
+/* ========================================
+   결과
+======================================== */
+
+.result {
+
+    max-width:
+        650px;
+
+    margin:
+        0 auto;
+
+    text-align:
+        center;
+}
+
+
+.result-icon {
+
+    font-size:
+        55px;
+
+    margin-bottom:
+        7px;
+}
+
+
+.result h2 {
+
+    margin-bottom:
+        5px;
+}
+
+
+.final-score {
+
+    margin:
+        10px 0;
+
+    color:
+        var(--primary);
+
+    font-size:
+        72px;
+
+    font-weight:
+        900;
+
+    line-height:
+        1.1;
+}
+
+
+.final-score small {
+
+    color:
+        var(--text);
+
+    font-size:
+        22px;
+}
+
+
+#result-summary {
+
+    color:
+        var(--muted);
+
+    margin-bottom:
+        22px;
+}
+
+
+.result-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap:
+        10px;
+
+    margin-bottom:
+        22px;
+}
+
+
+.result-grid > div {
+
+    border:
+        1px solid
+        var(--line);
+
+    border-radius:
+        12px;
+
+    padding:
+        15px;
+}
+
+
+.result-grid span,
+.result-grid strong {
+
+    display:
+        block;
+}
+
+
+.result-grid span {
+
+    color:
+        var(--muted);
+
+    font-size:
+        13px;
+
+    margin-bottom:
+        6px;
+}
+
+
+.result-grid strong {
+
+    font-size:
+        20px;
+}
+
+
+
+/* ========================================
+   푸터
+======================================== */
+
+footer {
+
+    text-align:
+        center;
+
+    color:
+        #9aa2b1;
+
+    font-size:
+        13px;
+
+    margin-top:
+        18px;
+}
+
+
+
+/* ========================================
+   모바일
+======================================== */
+
+@media (max-width: 650px) {
+
+    .app {
+
+        width:
+            94%;
+
+        padding-top:
+            25px;
+    }
+
+
+    .card {
+
+        padding:
+            20px;
+    }
+
+
+    .settings {
+
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .quiz-header {
+
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .progress {
+
+        order:
+            -1;
+    }
+
+
+    .score {
+
+        justify-self:
+            start;
+    }
+
+
+    #question-text {
+
+        font-size:
+            21px;
+    }
+
+
+    .result-grid {
+
+        grid-template-columns:
+            1fr;
+    }
+}
