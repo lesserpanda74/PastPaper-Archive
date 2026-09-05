@@ -1,22 +1,33 @@
-import { Header } from "./components/header.js";
-import { Footer } from "./components/footer.js";
+import { Header }
+    from "./components/header.js";
+
+import { Footer }
+    from "./components/footer.js";
+
 
 import {
     SetupScreen,
     bindSetupEvents
-} from "./screens/setupScreen.js";
+}
+    from "./screens/setupScreen.js";
+
 
 import {
     QuizScreen,
     bindQuizEvents
-} from "./screens/quizScreen.js";
+}
+    from "./screens/quizScreen.js";
+
 
 import {
     ResultScreen,
     bindResultEvents
-} from "./screens/resultScreen.js";
+}
+    from "./screens/resultScreen.js";
 
-import { examData } from "./data/examData.js";
+
+import { examData }
+    from "./data/examData.js";
 
 
 // ========================================
@@ -41,12 +52,13 @@ const state = {
 
     score: 0,
 
-    lastAnswerCorrect: false
+    answered: false
+
 };
 
 
 // ========================================
-// DOM
+// HTML
 // ========================================
 
 const header =
@@ -68,7 +80,7 @@ const footer =
 
 
 // ========================================
-// 초기 화면
+// 공통 영역
 // ========================================
 
 header.innerHTML =
@@ -80,7 +92,7 @@ footer.innerHTML =
 
 
 // ========================================
-// 화면 렌더링
+// 화면 표시
 // ========================================
 
 function render() {
@@ -97,9 +109,9 @@ function render() {
 
 
         bindSetupEvents(
-            state,
             actions
         );
+
 
         return;
     }
@@ -128,6 +140,7 @@ function render() {
             actions
         );
 
+
         return;
     }
 
@@ -148,16 +161,23 @@ function render() {
         );
 
     }
+
 }
 
 
 // ========================================
-// 학년 선택
+// Actions
 // ========================================
 
 const actions = {
 
-    selectGrade(grade) {
+    // ------------------------------------
+    // 학년
+    // ------------------------------------
+
+    selectGrade(
+        grade
+    ) {
 
         state.grade =
             grade;
@@ -169,14 +189,17 @@ const actions = {
             null;
 
         render();
+
     },
 
 
-    // ====================================
-    // 과목 선택
-    // ====================================
+    // ------------------------------------
+    // 과목
+    // ------------------------------------
 
-    selectSubject(subject) {
+    selectSubject(
+        subject
+    ) {
 
         state.subject =
             subject;
@@ -185,57 +208,34 @@ const actions = {
             null;
 
         render();
+
     },
 
 
-    // ====================================
-    // 단원 선택
-    // ====================================
+    // ------------------------------------
+    // 단원
+    // ------------------------------------
 
-    selectUnit(unit) {
+    selectUnit(
+        unit
+    ) {
 
         state.unit =
             unit;
 
         render();
+
     },
 
 
-    // ====================================
-    // 문제 시작
-    // ====================================
+    // ------------------------------------
+    // 시험 시작
+    // ------------------------------------
 
-    startQuiz(count, type) {
-
-        if (!state.grade) {
-
-            alert(
-                "학년을 선택해 주세요."
-            );
-
-            return;
-        }
-
-
-        if (!state.subject) {
-
-            alert(
-                "과목을 선택해 주세요."
-            );
-
-            return;
-        }
-
-
-        if (!state.unit) {
-
-            alert(
-                "단원을 선택해 주세요."
-            );
-
-            return;
-        }
-
+    startQuiz(
+        count,
+        type
+    ) {
 
         const source =
             examData
@@ -244,10 +244,21 @@ const actions = {
                 [state.unit];
 
 
+        if (!source) {
+
+            alert(
+                "문제를 찾을 수 없습니다."
+            );
+
+            return;
+        }
+
+
         const questions =
             source.filter(
                 question =>
-                    question.type === type
+                    question.type ===
+                    type
             );
 
 
@@ -257,8 +268,9 @@ const actions = {
         ) {
 
             alert(
-                `현재 선택한 조건에는 ` +
-                `${questions.length}문제만 있습니다.\n` +
+                `현재 이 단원에는 ` +
+                `${questions.length}개의 ` +
+                `문제만 있습니다.\n\n` +
                 `문제를 더 추가해 주세요.`
             );
 
@@ -287,19 +299,26 @@ const actions = {
             0;
 
 
+        state.answered =
+            false;
+
+
         state.screen =
             "quiz";
 
 
         render();
+
     },
 
 
-    // ====================================
+    // ------------------------------------
     // 정답 확인
-    // ====================================
+    // ------------------------------------
 
-    checkAnswer(answer) {
+    checkAnswer(
+        answer
+    ) {
 
         const question =
             state.questions[
@@ -307,101 +326,133 @@ const actions = {
             ];
 
 
-        let correct =
-            false;
+        const correct =
+            Number(answer) ===
+            Number(question.answer);
 
 
-        // 객관식
-
-        if (
-            state.type ===
-            "multiple"
-        ) {
-
-            correct =
-                Number(answer) ===
-                question.answer;
-        }
-
-
-        // OX
-
-        else if (
-            state.type ===
-            "ox"
-        ) {
-
-            const correctAnswer =
-                question.oxAnswer
-                    ? 0
-                    : 1;
-
-
-            correct =
-                Number(answer) ===
-                correctAnswer;
-        }
-
-
-        // 주관식
-
-        else if (
-            state.type ===
-            "short"
-        ) {
-
-            const userAnswer =
-                String(answer)
-                    .trim()
-                    .toLowerCase()
-                    .replace(
-                        /\s/g,
-                        ""
-                    );
-
-
-            const correctAnswer =
-                String(
-                    question.answerText
-                )
-                    .trim()
-                    .toLowerCase()
-                    .replace(
-                        /\s/g,
-                        ""
-                    );
-
-
-            correct =
-                userAnswer ===
-                correctAnswer;
-        }
-
-
-        state.lastAnswerCorrect =
-            correct;
+        state.answered =
+            true;
 
 
         if (correct) {
 
             state.score++;
+
         }
 
 
-        showFeedback(
-            question,
-            correct
-        );
+        const feedback =
+            document.getElementById(
+                "feedback"
+            );
+
+
+        if (correct) {
+
+            feedback.textContent =
+                "정답입니다! 🎉";
+
+            feedback.className =
+                "feedback correct-text";
+
+        } else {
+
+            feedback.textContent =
+                `오답입니다. ` +
+                `정답은 ${question.answer + 1}번입니다. ` +
+                `${question.explanation || ""}`;
+
+            feedback.className =
+                "feedback wrong-text";
+
+        }
+
+
+        // 보기 잠금
+
+        document
+            .querySelectorAll(
+                ".answer-option"
+            )
+            .forEach(
+                button => {
+
+                    button.disabled =
+                        true;
+
+                }
+            );
+
+
+        // 정답 표시
+
+        document
+            .querySelectorAll(
+                ".answer-option"
+            )
+            .forEach(
+                (button, index) => {
+
+                    if (
+                        index ===
+                        question.answer
+                    ) {
+
+                        button.classList.add(
+                            "correct"
+                        );
+
+                    }
+
+
+                    if (
+                        !correct &&
+                        index ===
+                        Number(answer)
+                    ) {
+
+                        button.classList.add(
+                            "wrong"
+                        );
+
+                    }
+
+                }
+            );
+
+
+        document
+            .getElementById(
+                "submit-btn"
+            )
+            .classList.add(
+                "hidden"
+            );
+
+
+        document
+            .getElementById(
+                "next-btn"
+            )
+            .classList.remove(
+                "hidden"
+            );
+
     },
 
 
-    // ====================================
+    // ------------------------------------
     // 다음 문제
-    // ====================================
+    // ------------------------------------
 
     nextQuestion() {
 
         state.currentIndex++;
+
+
+        state.answered =
+            false;
 
 
         if (
@@ -416,26 +467,27 @@ const actions = {
 
 
         render();
+
     },
 
 
-    // ====================================
-    // 처음으로
-    // ====================================
+    // ------------------------------------
+    // 설정으로
+    // ------------------------------------
 
     goSetup() {
 
         state.screen =
             "setup";
 
-
         render();
+
     },
 
 
-    // ====================================
+    // ------------------------------------
     // 다시 풀기
-    // ====================================
+    // ------------------------------------
 
     retryQuiz() {
 
@@ -474,132 +526,28 @@ const actions = {
             0;
 
 
+        state.answered =
+            false;
+
+
         state.screen =
             "quiz";
 
 
         render();
+
     }
 
 };
 
 
 // ========================================
-// 피드백 표시
-// ========================================
-
-function showFeedback(
-    question,
-    correct
-) {
-
-    const feedback =
-        document.getElementById(
-            "feedback"
-        );
-
-
-    const submitBtn =
-        document.getElementById(
-            "submit-btn"
-        );
-
-
-    const nextBtn =
-        document.getElementById(
-            "next-btn"
-        );
-
-
-    if (correct) {
-
-        feedback.textContent =
-            "정답입니다! 🎉";
-
-        feedback.className =
-            "feedback correct-text";
-
-    } else {
-
-        let answerText =
-            "";
-
-
-        if (
-            state.type ===
-            "multiple"
-        ) {
-
-            answerText =
-                `정답은 ${
-                    question.answer + 1
-                }번입니다.`;
-        }
-
-
-        else if (
-            state.type ===
-            "ox"
-        ) {
-
-            answerText =
-                `정답은 ${
-                    question.oxAnswer
-                        ? "O"
-                        : "X"
-                }입니다.`;
-        }
-
-
-        else {
-
-            answerText =
-                `정답: ${
-                    question.answerText
-                }`;
-        }
-
-
-        feedback.textContent =
-            `오답입니다. ${answerText} ${
-                question.explanation || ""
-            }`;
-
-        feedback.className =
-            "feedback wrong-text";
-    }
-
-
-    const buttons =
-        document.querySelectorAll(
-            ".answer-option"
-        );
-
-
-    buttons.forEach(
-        button => {
-            button.disabled =
-                true;
-        }
-    );
-
-
-    submitBtn.classList.add(
-        "hidden"
-    );
-
-
-    nextBtn.classList.remove(
-        "hidden"
-    );
-}
-
-
-// ========================================
 // 랜덤 섞기
 // ========================================
 
-function shuffle(array) {
+function shuffle(
+    array
+) {
 
     const result =
         [...array];
@@ -626,6 +574,7 @@ function shuffle(array) {
             result[j],
             result[i]
         ];
+
     }
 
 
@@ -634,7 +583,7 @@ function shuffle(array) {
 
 
 // ========================================
-// 시작
+// 프로그램 시작
 // ========================================
 
 render();

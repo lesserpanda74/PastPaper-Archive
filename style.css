@@ -4,40 +4,41 @@
 
 * {
     box-sizing: border-box;
-
     margin: 0;
     padding: 0;
 }
 
 
 :root {
-
     --background: #f5f7fb;
-
     --card: #ffffff;
 
     --text: #202632;
-
     --muted: #70798a;
 
     --line: #e4e8ef;
 
     --primary: #4f46e5;
-
     --primary-light: #eef2ff;
 
     --success: #16a34a;
-
     --success-light: #ecfdf3;
 
     --danger: #dc2626;
-
     --danger-light: #fef2f2;
 }
 
 
-body {
+/* ========================================
+   전체 페이지
+======================================== */
 
+html {
+    min-height: 100%;
+}
+
+
+body {
     min-height: 100vh;
 
     background:
@@ -55,38 +56,41 @@ body {
 }
 
 
-button,
-select,
-input {
+/* 버튼 / 입력창 기본 */
 
+button,
+input,
+select {
     font: inherit;
 }
 
 
+/* 버튼 클릭 시 기본 모양 */
+
+button {
+    -webkit-tap-highlight-color: transparent;
+}
+
 
 /* ========================================
-   전체
+   전체 앱
 ======================================== */
 
 .app {
-
     width: min(900px, 92%);
 
     margin: 0 auto;
 
     padding:
-        40px 0
-        25px;
+        40px 0 25px;
 }
 
 
-
 /* ========================================
-   헤더
+   Header
 ======================================== */
 
 .header {
-
     text-align: center;
 
     margin-bottom: 30px;
@@ -94,7 +98,6 @@ input {
 
 
 .eyebrow {
-
     color:
         var(--primary);
 
@@ -102,23 +105,23 @@ input {
 
     font-weight: 800;
 
-    letter-spacing: .15em;
+    letter-spacing: 0.15em;
 
     margin-bottom: 8px;
 }
 
 
 .header h1 {
-
     font-size:
         clamp(28px, 5vw, 40px);
+
+    line-height: 1.25;
 
     margin-bottom: 10px;
 }
 
 
 .header > p:last-child {
-
     color:
         var(--muted);
 
@@ -126,12 +129,12 @@ input {
 }
 
 
-
 /* ========================================
-   카드
+   공통 Card
 ======================================== */
 
 .card {
+    width: 100%;
 
     background:
         var(--card);
@@ -152,13 +155,11 @@ input {
 }
 
 
-
 /* ========================================
-   설정 단계
+   설정 화면
 ======================================== */
 
 .step {
-
     padding-bottom: 25px;
 
     margin-bottom: 25px;
@@ -169,13 +170,16 @@ input {
 }
 
 
-.step h2 {
+.step:last-of-type {
+    border-bottom: none;
+}
 
+
+.step h2 {
     font-size: 20px;
 
     margin-bottom: 14px;
 }
-
 
 
 /* ========================================
@@ -183,7 +187,6 @@ input {
 ======================================== */
 
 .button-grid {
-
     display: flex;
 
     flex-wrap: wrap;
@@ -193,12 +196,17 @@ input {
 
 
 .select-btn {
+    min-width: 90px;
 
     border:
         2px solid
         var(--line);
 
-    background: white;
+    background:
+        #ffffff;
+
+    color:
+        var(--text);
 
     border-radius:
         12px;
@@ -210,16 +218,15 @@ input {
 
     font-weight: 700;
 
-    color:
-        var(--text);
-
     transition:
-        0.15s ease;
+        transform 0.15s ease,
+        border-color 0.15s ease,
+        background-color 0.15s ease,
+        color 0.15s ease;
 }
 
 
 .select-btn:hover {
-
     border-color:
         #bfc5ff;
 
@@ -228,18 +235,22 @@ input {
 }
 
 
+.select-btn:active {
+    transform:
+        translateY(0);
+}
+
+
 .select-btn.active {
+    background:
+        var(--primary-light);
 
     color:
         var(--primary);
 
-    background:
-        var(--primary-light);
-
     border-color:
         var(--primary);
 }
-
 
 
 /* ========================================
@@ -247,6 +258,7 @@ input {
 ======================================== */
 
 .guide {
+    width: 100%;
 
     color:
         var(--muted);
@@ -255,13 +267,11 @@ input {
 }
 
 
-
 /* ========================================
    문제 설정
 ======================================== */
 
 .settings {
-
     display: grid;
 
     grid-template-columns:
@@ -274,8 +284,12 @@ input {
 
 
 .setting label {
-
     display: block;
+
+    color:
+        var(--text);
+
+    font-size: 14px;
 
     font-weight: 700;
 
@@ -283,11 +297,10 @@ input {
 }
 
 
-select {
-
+.setting select {
     width: 100%;
 
-    background: white;
+    appearance: auto;
 
     border:
         1px solid
@@ -296,24 +309,32 @@ select {
     border-radius:
         11px;
 
-    padding:
-        12px;
+    background:
+        #ffffff;
 
     color:
         var(--text);
+
+    padding:
+        12px;
+
+    outline: none;
 
     cursor: pointer;
 }
 
 
+.setting select:focus {
+    border-color:
+        var(--primary);
+}
+
 
 /* ========================================
-   공통 버튼
+   Primary Button
 ======================================== */
 
-.primary-btn,
-.secondary-btn {
-
+.primary-btn {
     width: 100%;
 
     border: none;
@@ -321,68 +342,99 @@ select {
     border-radius:
         12px;
 
+    background:
+        var(--primary);
+
+    color:
+        #ffffff;
+
     padding:
         14px;
 
     cursor: pointer;
 
     font-weight: 700;
-}
-
-
-.primary-btn {
-
-    background:
-        var(--primary);
-
-    color: white;
 
     transition:
-        0.15s ease;
+        transform 0.15s ease,
+        filter 0.15s ease;
 }
 
 
 .primary-btn:hover {
-
     filter:
-        brightness(.96);
+        brightness(0.96);
 
     transform:
         translateY(-1px);
 }
 
 
-.secondary-btn {
+.primary-btn:active {
+    transform:
+        translateY(0);
+}
 
-    background:
-        white;
+
+/* ========================================
+   Secondary Button
+======================================== */
+
+.secondary-btn {
+    width: 100%;
 
     border:
         1px solid
         var(--line);
 
+    border-radius:
+        12px;
+
+    background:
+        #ffffff;
+
     color:
         var(--text);
 
+    padding:
+        14px;
+
     margin-top: 10px;
+
+    cursor: pointer;
+
+    font-weight: 700;
+
+    transition:
+        background-color 0.15s ease,
+        border-color 0.15s ease;
 }
 
 
 .secondary-btn:hover {
-
     background:
         #f9fafb;
+
+    border-color:
+        #d5dae3;
 }
 
 
-.ghost-btn {
+/* ========================================
+   Ghost Button
+======================================== */
 
+.ghost-btn {
     border: none;
 
-    background: transparent;
+    background:
+        transparent;
 
     color:
         var(--muted);
+
+    padding:
+        6px 0;
 
     cursor: pointer;
 
@@ -390,25 +442,28 @@ select {
 }
 
 
+.ghost-btn:hover {
+    color:
+        var(--text);
+}
+
 
 /* ========================================
    메시지
 ======================================== */
 
 .message {
-
-    min-height: 21px;
+    min-height: 22px;
 
     margin-top: 10px;
-
-    text-align: center;
 
     color:
         var(--danger);
 
     font-size: 14px;
-}
 
+    text-align: center;
+}
 
 
 /* ========================================
@@ -416,18 +471,16 @@ select {
 ======================================== */
 
 .hidden {
-
-    display: none !important;
+    display:
+        none !important;
 }
 
 
-
 /* ========================================
-   문제 화면
+   문제 풀이 상단
 ======================================== */
 
 .quiz-header {
-
     display: grid;
 
     grid-template-columns:
@@ -441,22 +494,31 @@ select {
 }
 
 
+/* ========================================
+   진행률
+======================================== */
+
 .progress {
+    width: 100%;
 
     text-align: center;
 }
 
 
 .progress > span {
+    display: block;
 
     color:
         var(--muted);
 
     font-size: 14px;
+
+    margin-bottom: 7px;
 }
 
 
 .progress-bar {
+    width: 100%;
 
     height: 8px;
 
@@ -467,13 +529,10 @@ select {
         999px;
 
     overflow: hidden;
-
-    margin-top: 7px;
 }
 
 
-#progress-fill {
-
+.progress-fill {
     width: 0%;
 
     height: 100%;
@@ -481,18 +540,40 @@ select {
     background:
         var(--primary);
 
+    border-radius:
+        999px;
+
     transition:
-        width .25s ease;
+        width 0.25s ease;
 }
 
 
-.score {
+/* 예전 코드에서 #progress-fill을 사용하는 경우도 지원 */
 
+#progress-fill {
+    height: 100%;
+
+    background:
+        var(--primary);
+
+    border-radius:
+        999px;
+
+    transition:
+        width 0.25s ease;
+}
+
+
+/* ========================================
+   점수 표시
+======================================== */
+
+.score {
     padding:
         8px 13px;
 
     background:
-        white;
+        #ffffff;
 
     border:
         1px solid
@@ -501,6 +582,9 @@ select {
     border-radius:
         999px;
 
+    color:
+        var(--muted);
+
     font-size: 14px;
 
     white-space: nowrap;
@@ -508,7 +592,6 @@ select {
 
 
 .score strong {
-
     color:
         var(--primary);
 
@@ -516,28 +599,17 @@ select {
 }
 
 
-
 /* ========================================
-   문제
+   문제 카드
 ======================================== */
 
 .question-card {
-
     margin-bottom: 0;
 }
 
 
 .meta {
-
     display: inline-block;
-
-    padding:
-        6px 11px;
-
-    margin-bottom: 18px;
-
-    border-radius:
-        999px;
 
     background:
         var(--primary-light);
@@ -545,14 +617,25 @@ select {
     color:
         var(--primary);
 
+    border-radius:
+        999px;
+
+    padding:
+        6px 11px;
+
+    margin-bottom: 18px;
+
     font-size: 13px;
 
     font-weight: 700;
 }
 
 
-#question-text {
+/* ========================================
+   문제 제목
+======================================== */
 
+#question-text {
     white-space: pre-line;
 
     font-size:
@@ -564,13 +647,11 @@ select {
 }
 
 
-
 /* ========================================
-   보기
+   객관식 보기
 ======================================== */
 
 .answer-options {
-
     display: grid;
 
     gap: 11px;
@@ -578,48 +659,61 @@ select {
 
 
 .answer-option {
-
     width: 100%;
 
-    text-align: left;
+    min-height: 52px;
 
     border:
         2px solid
         var(--line);
 
-    background:
-        white;
-
     border-radius:
         12px;
 
+    background:
+        #ffffff;
+
+    color:
+        var(--text);
+
     padding:
         15px 16px;
+
+    text-align:
+        left;
 
     cursor: pointer;
 
     font-size: 16px;
 
-    color:
-        var(--text);
+    line-height: 1.45;
 
     transition:
-        .15s ease;
+        border-color 0.15s ease,
+        background-color 0.15s ease,
+        transform 0.15s ease;
 }
 
 
 .answer-option:hover:not(:disabled) {
-
     border-color:
         #c6cbff;
 
     background:
         #fafaff;
+
+    transform:
+        translateY(-1px);
+}
+
+
+.answer-option:active:not(:disabled) {
+    transform:
+        translateY(0);
 }
 
 
 .answer-option.selected {
-
     border-color:
         var(--primary);
 
@@ -629,31 +723,33 @@ select {
 
 
 .answer-option.correct {
-
     border-color:
         var(--success);
 
     background:
         var(--success-light);
+
+    color:
+        #166534;
 }
 
 
 .answer-option.wrong {
-
     border-color:
         var(--danger);
 
     background:
         var(--danger-light);
+
+    color:
+        #991b1b;
 }
 
 
 .answer-option:disabled {
-
     cursor:
         default;
 }
-
 
 
 /* ========================================
@@ -661,11 +757,9 @@ select {
 ======================================== */
 
 .short-answer {
-
     width: 100%;
 
-    padding:
-        15px;
+    min-height: 52px;
 
     border:
         2px solid
@@ -674,28 +768,44 @@ select {
     border-radius:
         12px;
 
+    background:
+        #ffffff;
+
+    color:
+        var(--text);
+
+    padding:
+        14px 15px;
+
     outline: none;
 
     font-size: 16px;
 
+    transition:
+        border-color 0.15s ease,
+        background-color 0.15s ease;
+}
+
+
+.short-answer::placeholder {
     color:
-        var(--text);
+        #9aa2b1;
 }
 
 
 .short-answer:focus {
-
     border-color:
         var(--primary);
 }
 
 
 .short-answer:disabled {
-
     background:
         #f8f9fb;
-}
 
+    cursor:
+        default;
+}
 
 
 /* ========================================
@@ -703,7 +813,6 @@ select {
 ======================================== */
 
 .feedback {
-
     min-height: 28px;
 
     margin:
@@ -716,7 +825,6 @@ select {
 
 
 .correct-text {
-
     color:
         var(--success);
 
@@ -725,7 +833,6 @@ select {
 
 
 .wrong-text {
-
     color:
         var(--danger);
 
@@ -733,13 +840,11 @@ select {
 }
 
 
-
 /* ========================================
-   결과
+   결과 화면
 ======================================== */
 
-.result {
-
+.result-card {
     max-width:
         650px;
 
@@ -751,8 +856,15 @@ select {
 }
 
 
-.result-icon {
+.result {
+    width: 100%;
 
+    text-align:
+        center;
+}
+
+
+.result-icon {
     font-size:
         55px;
 
@@ -762,17 +874,12 @@ select {
 
 
 .result h2 {
-
     margin-bottom:
         5px;
 }
 
 
 .final-score {
-
-    margin:
-        10px 0;
-
     color:
         var(--primary);
 
@@ -784,21 +891,25 @@ select {
 
     line-height:
         1.1;
+
+    margin:
+        10px 0;
 }
 
 
 .final-score small {
-
     color:
         var(--text);
 
     font-size:
         22px;
+
+    font-weight:
+        700;
 }
 
 
 #result-summary {
-
     color:
         var(--muted);
 
@@ -807,8 +918,11 @@ select {
 }
 
 
-.result-grid {
+/* ========================================
+   결과 정보
+======================================== */
 
+.result-grid {
     display:
         grid;
 
@@ -824,13 +938,15 @@ select {
 
 
 .result-grid > div {
-
     border:
         1px solid
         var(--line);
 
     border-radius:
         12px;
+
+    background:
+        #ffffff;
 
     padding:
         15px;
@@ -839,14 +955,12 @@ select {
 
 .result-grid span,
 .result-grid strong {
-
     display:
         block;
 }
 
 
 .result-grid span {
-
     color:
         var(--muted);
 
@@ -859,19 +973,19 @@ select {
 
 
 .result-grid strong {
+    color:
+        var(--text);
 
     font-size:
         20px;
 }
 
 
-
 /* ========================================
-   푸터
+   Footer
 ======================================== */
 
 footer {
-
     text-align:
         center;
 
@@ -886,7 +1000,6 @@ footer {
 }
 
 
-
 /* ========================================
    모바일
 ======================================== */
@@ -894,7 +1007,6 @@ footer {
 @media (max-width: 650px) {
 
     .app {
-
         width:
             94%;
 
@@ -904,50 +1016,76 @@ footer {
 
 
     .card {
-
         padding:
             20px;
     }
 
 
     .settings {
-
         grid-template-columns:
             1fr;
     }
 
 
     .quiz-header {
-
         grid-template-columns:
             1fr;
     }
 
 
     .progress {
-
         order:
             -1;
     }
 
 
     .score {
-
         justify-self:
             start;
     }
 
 
     #question-text {
-
         font-size:
             21px;
     }
 
 
     .result-grid {
-
         grid-template-columns:
             1fr;
     }
+
+}
+
+
+/* ========================================
+   아주 작은 화면
+======================================== */
+
+@media (max-width: 400px) {
+
+    .app {
+        width:
+            95%;
+    }
+
+
+    .card {
+        padding:
+            17px;
+    }
+
+
+    .select-btn {
+        width:
+            100%;
+    }
+
+
+    .final-score {
+        font-size:
+            60px;
+    }
+
 }

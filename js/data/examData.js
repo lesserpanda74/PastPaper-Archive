@@ -1,103 +1,43 @@
+import unit01 from "./grade2/math/unit01.js";
+import unit02 from "./grade2/math/unit09.js";
+import unit03 from "./grade2/math/unit03.js";
+import unit04 from "./grade2/math/unit04.js";
+import unit05 from "./grade2/math/unit05.js";
+import unit06 from "./grade2/math/unit06.js";
+import unit07 from "./grade2/math/unit07.js";
+import unit08 from "./grade2/math/unit08.js";
+import unit09 from "./grade2/math/unit09.js";
+import unit10 from "./grade2/math/unit10.js";
+import unit11 from "./grade2/math/unit11.js";
+
+
 export const examData = {
 
-    "1": {
+    "2": {
 
         "수학": {
 
-            "1단원": [
+            "01 삼각형의 성질 (1)": unit01,
 
-                {
-                    type: "multiple",
+            "02 삼각형의 성질 (2)": unit02,
 
-                    question: "5 + 3의 값은?",
+            "03 평행사변형": unit03,
 
-                    choices: [
-                        "6",
-                        "7",
-                        "8",
-                        "9"
-                    ],
+            "04 여러 가지 사각형": unit04,
 
-                    answer: 2,
+            "05 도형의 닮음": unit05,
 
-                    explanation:
-                        "5 + 3 = 8입니다."
-                },
+            "06 평행선 사이의 선분의 길이의 비": unit06,
 
-                {
-                    type: "multiple",
+            "07 삼각형의 무게중심": unit07,
 
-                    question: "12 - 7의 값은?",
+            "08 닮음의 활용": unit08,
 
-                    choices: [
-                        "3",
-                        "4",
-                        "5",
-                        "6"
-                    ],
+            "09 피타고라스 정리": unit09,
 
-                    answer: 2,
+            "10 경우의 수": unit10,
 
-                    explanation:
-                        "12 - 7 = 5입니다."
-                },
-
-                {
-                    type: "multiple",
-
-                    question: "4 × 6의 값은?",
-
-                    choices: [
-                        "20",
-                        "24",
-                        "28",
-                        "30"
-                    ],
-
-                    answer: 1,
-
-                    explanation:
-                        "4 × 6 = 24입니다."
-                },
-
-                {
-                    type: "multiple",
-
-                    question: "36 ÷ 6의 값은?",
-
-                    choices: [
-                        "4",
-                        "5",
-                        "6",
-                        "7"
-                    ],
-
-                    answer: 2,
-
-                    explanation:
-                        "36 ÷ 6 = 6입니다."
-                },
-
-                {
-                    type: "multiple",
-
-                    question:
-                        "x + 5 = 12일 때 x의 값은?",
-
-                    choices: [
-                        "5",
-                        "6",
-                        "7",
-                        "8"
-                    ],
-
-                    answer: 2,
-
-                    explanation:
-                        "12 - 5 = 7이므로 x = 7입니다."
-                }
-
-            ]
+            "11 확률": unit11
 
         }
 

@@ -1,4 +1,7 @@
-export function Card(content, className = "") {
+export function Card(
+    content,
+    className = ""
+) {
 
     return `
         <div class="card ${className}">

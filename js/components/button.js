@@ -1,15 +1,16 @@
 export function Button(
     text,
-    {
-        id = "",
-        className = "primary-btn",
-        type = "button"
-    } = {}
+    options = {}
 ) {
+
+    const {
+        id = "",
+        className = "primary-btn"
+    } = options;
 
     return `
         <button
-            type="${type}"
+            type="button"
             ${id ? `id="${id}"` : ""}
             class="${className}"
         >

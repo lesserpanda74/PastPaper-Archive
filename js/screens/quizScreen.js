@@ -7,7 +7,39 @@ export function QuizScreen(
     question
 ) {
 
-    const content = `
+    let answersHTML = "";
+
+
+    if (
+        state.type ===
+        "multiple"
+    ) {
+
+        answersHTML = `
+
+            <div class="answer-options">
+
+                ${
+                    question.choices
+                        .map(
+                            (choice, index) => `
+                                <button
+                                    class="answer-option"
+                                    data-answer="${index}"
+                                >
+                                    ${index + 1}. ${choice}
+                                </button>
+                            `
+                        )
+                        .join("")
+                }
+
+            </div>
+        `;
+    }
+
+
+    return `
 
         <div class="quiz-header">
 
@@ -58,10 +90,7 @@ export function QuizScreen(
 
             <div id="answer-area">
 
-                ${renderAnswers(
-                    state,
-                    question
-                )}
+                ${answersHTML}
 
             </div>
 
@@ -90,70 +119,6 @@ export function QuizScreen(
         `, "question-card")}
 
     `;
-
-
-    return content;
-}
-
-
-function renderAnswers(
-    state,
-    question
-) {
-
-    if (
-        state.type === "short"
-    ) {
-
-        return `
-            <input
-                id="short-answer"
-                class="short-answer"
-                type="text"
-                placeholder="정답을 입력하세요"
-            >
-        `;
-    }
-
-
-    let choices =
-        question.choices;
-
-
-    if (
-        state.type === "ox"
-    ) {
-
-        choices = [
-            "O",
-            "X"
-        ];
-    }
-
-
-    return `
-
-        <div class="answer-options">
-
-            ${choices
-                .map(
-                    (choice, index) => `
-                        <button
-                            class="answer-option"
-                            data-answer="${index}"
-                        >
-                            ${
-                                state.type === "ox"
-                                    ? choice
-                                    : `${index + 1}. ${choice}`
-                            }
-                        </button>
-                    `
-                )
-                .join("")}
-
-        </div>
-    `;
 }
 
 
@@ -170,36 +135,50 @@ export function bindQuizEvents(
         .querySelectorAll(
             ".answer-option"
         )
-        .forEach(button => {
+        .forEach(
+            button => {
 
-            button.addEventListener(
-                "click",
-                () => {
+                button.addEventListener(
+                    "click",
+                    () => {
 
-                    document
-                        .querySelectorAll(
-                            ".answer-option"
-                        )
-                        .forEach(btn => {
+                        if (
+                            state.answered
+                        ) {
+                            return;
+                        }
 
-                            btn.classList.remove(
-                                "selected"
+
+                        document
+                            .querySelectorAll(
+                                ".answer-option"
+                            )
+                            .forEach(
+                                btn => {
+
+                                    btn.classList.remove(
+                                        "selected"
+                                    );
+
+                                }
                             );
-                        });
 
 
-                    button.classList.add(
-                        "selected"
-                    );
-
-
-                    selectedAnswer =
-                        Number(
-                            button.dataset.answer
+                        button.classList.add(
+                            "selected"
                         );
-                }
-            );
-        });
+
+
+                        selectedAnswer =
+                            Number(
+                                button.dataset.answer
+                            );
+
+                    }
+                );
+
+            }
+        );
 
 
     document
@@ -210,29 +189,23 @@ export function bindQuizEvents(
             "click",
             () => {
 
-                let answer =
-                    selectedAnswer;
-
-
                 if (
-                    state.type ===
-                    "short"
+                    selectedAnswer ===
+                    null
                 ) {
 
-                    const input =
-                        document.getElementById(
-                            "short-answer"
-                        );
+                    alert(
+                        "답을 선택해 주세요."
+                    );
 
-
-                    answer =
-                        input.value;
+                    return;
                 }
 
 
                 actions.checkAnswer(
-                    answer
+                    selectedAnswer
                 );
+
             }
         );
 
@@ -246,6 +219,7 @@ export function bindQuizEvents(
             () => {
 
                 actions.nextQuestion();
+
             }
         );
 
@@ -259,6 +233,8 @@ export function bindQuizEvents(
             () => {
 
                 actions.goSetup();
+
             }
         );
+
 }

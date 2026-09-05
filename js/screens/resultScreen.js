@@ -10,9 +10,11 @@ export function ResultScreen(
 
 
     const score =
-        Math.round(
-            (state.score / total) * 100
-        );
+        total > 0
+            ? Math.round(
+                (state.score / total) * 100
+            )
+            : 0;
 
 
     return Card(`
@@ -23,11 +25,9 @@ export function ResultScreen(
                 🎉
             </div>
 
-
             <p class="eyebrow">
                 RESULT
             </p>
-
 
             <h2>
                 문제 풀이 완료!
@@ -45,10 +45,12 @@ export function ResultScreen(
             </div>
 
 
-            <p>
+            <p id="result-summary">
+
                 ${total}문제 중
                 ${state.score}문제를
                 맞혔어요.
+
             </p>
 
 
@@ -129,6 +131,7 @@ export function bindResultEvents(
             () => {
 
                 actions.retryQuiz();
+
             }
         );
 
@@ -142,6 +145,8 @@ export function bindResultEvents(
             () => {
 
                 actions.goSetup();
+
             }
         );
+
 }

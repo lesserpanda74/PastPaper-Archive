@@ -3,34 +3,40 @@ import { Button } from "../components/button.js";
 import { examData } from "../data/examData.js";
 
 
-export function SetupScreen(state, actions) {
+export function SetupScreen(state) {
 
-    const grades = Object.keys(examData);
+    const grades =
+        Object.keys(examData);
 
-    const gradeButtons = grades
-        .map(grade => {
 
-            const active =
-                state.grade === grade
-                    ? "active"
-                    : "";
+    const gradeButtons =
+        grades.map(
+            grade => {
 
-            return `
-                <button
-                    class="select-btn ${active}"
-                    data-grade="${grade}"
-                >
-                    ${grade}학년
-                </button>
-            `;
-        })
-        .join("");
+                const active =
+                    state.grade === grade
+                        ? "active"
+                        : "";
+
+
+                return `
+                    <button
+                        class="select-btn ${active}"
+                        data-grade="${grade}"
+                    >
+                        ${grade}학년
+                    </button>
+                `;
+            }
+        ).join("");
 
 
     let subjectsHTML =
-        `<p class="guide">
+        `
+        <p class="guide">
             먼저 학년을 선택해 주세요.
-        </p>`;
+        </p>
+        `;
 
 
     if (state.grade) {
@@ -42,13 +48,14 @@ export function SetupScreen(state, actions) {
 
 
         subjectsHTML =
-            subjects
-                .map(subject => {
+            subjects.map(
+                subject => {
 
                     const active =
                         state.subject === subject
                             ? "active"
                             : "";
+
 
                     return `
                         <button
@@ -58,15 +65,17 @@ export function SetupScreen(state, actions) {
                             ${subject}
                         </button>
                     `;
-                })
-                .join("");
+                }
+            ).join("");
     }
 
 
     let unitsHTML =
-        `<p class="guide">
+        `
+        <p class="guide">
             먼저 과목을 선택해 주세요.
-        </p>`;
+        </p>
+        `;
 
 
     if (
@@ -83,13 +92,14 @@ export function SetupScreen(state, actions) {
 
 
         unitsHTML =
-            units
-                .map(unit => {
+            units.map(
+                unit => {
 
                     const active =
                         state.unit === unit
                             ? "active"
                             : "";
+
 
                     return `
                         <button
@@ -99,12 +109,12 @@ export function SetupScreen(state, actions) {
                             ${unit}
                         </button>
                     `;
-                })
-                .join("");
+                }
+            ).join("");
     }
 
 
-    const content = `
+    return Card(`
 
         <div class="step">
 
@@ -112,11 +122,10 @@ export function SetupScreen(state, actions) {
                 1. 학년 선택
             </h2>
 
-            <div
-                id="grade-list"
-                class="button-grid"
-            >
+            <div class="button-grid">
+
                 ${gradeButtons}
+
             </div>
 
         </div>
@@ -132,7 +141,9 @@ export function SetupScreen(state, actions) {
                 id="subject-list"
                 class="button-grid"
             >
+
                 ${subjectsHTML}
+
             </div>
 
         </div>
@@ -148,7 +159,9 @@ export function SetupScreen(state, actions) {
                 id="unit-list"
                 class="button-grid"
             >
+
                 ${unitsHTML}
+
             </div>
 
         </div>
@@ -168,10 +181,6 @@ export function SetupScreen(state, actions) {
                         5문제
                     </option>
 
-                    <option value="10">
-                        10문제
-                    </option>
-
                 </select>
 
             </div>
@@ -189,14 +198,6 @@ export function SetupScreen(state, actions) {
                         객관식
                     </option>
 
-                    <option value="ox">
-                        O / X
-                    </option>
-
-                    <option value="short">
-                        주관식
-                    </option>
-
                 </select>
 
             </div>
@@ -212,22 +213,17 @@ export function SetupScreen(state, actions) {
             }
         )}
 
+
         <p
             id="setup-message"
             class="message"
         ></p>
-    `;
 
-
-    return Card(
-        content,
-        "setup-card"
-    );
+    `);
 }
 
 
 export function bindSetupEvents(
-    state,
     actions
 ) {
 
@@ -235,84 +231,100 @@ export function bindSetupEvents(
         .querySelectorAll(
             "[data-grade]"
         )
-        .forEach(button => {
+        .forEach(
+            button => {
 
-            button.addEventListener(
-                "click",
-                () => {
+                button.addEventListener(
+                    "click",
+                    () => {
 
-                    actions.selectGrade(
-                        button.dataset.grade
-                    );
-                }
-            );
-        });
+                        actions.selectGrade(
+                            button.dataset.grade
+                        );
+
+                    }
+                );
+
+            }
+        );
 
 
     document
         .querySelectorAll(
             "[data-subject]"
         )
-        .forEach(button => {
+        .forEach(
+            button => {
 
-            button.addEventListener(
-                "click",
-                () => {
+                button.addEventListener(
+                    "click",
+                    () => {
 
-                    actions.selectSubject(
-                        button.dataset.subject
-                    );
-                }
-            );
-        });
+                        actions.selectSubject(
+                            button.dataset.subject
+                        );
+
+                    }
+                );
+
+            }
+        );
 
 
     document
         .querySelectorAll(
             "[data-unit]"
         )
-        .forEach(button => {
+        .forEach(
+            button => {
 
-            button.addEventListener(
-                "click",
-                () => {
+                button.addEventListener(
+                    "click",
+                    () => {
 
-                    actions.selectUnit(
-                        button.dataset.unit
-                    );
-                }
-            );
-        });
+                        actions.selectUnit(
+                            button.dataset.unit
+                        );
 
+                    }
+                );
 
-    const startButton =
-        document.getElementById(
-            "start-btn"
+            }
         );
 
 
-    startButton.addEventListener(
-        "click",
-        () => {
+    document
+        .getElementById(
+            "start-btn"
+        )
+        .addEventListener(
+            "click",
+            () => {
 
-            const count =
-                Number(
-                    document.getElementById(
-                        "count"
-                    ).value
+                const count =
+                    Number(
+                        document
+                            .getElementById(
+                                "count"
+                            )
+                            .value
+                    );
+
+
+                const type =
+                    document
+                        .getElementById(
+                            "type"
+                        )
+                        .value;
+
+
+                actions.startQuiz(
+                    count,
+                    type
                 );
 
+            }
+        );
 
-            const type =
-                document.getElementById(
-                    "type"
-                ).value;
-
-
-            actions.startQuiz(
-                count,
-                type
-            );
-        }
-    );
 }

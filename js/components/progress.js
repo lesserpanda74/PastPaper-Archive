@@ -3,7 +3,7 @@ export function Progress(
     total
 ) {
 
-    const percentage =
+    const percent =
         total > 0
             ? (current / total) * 100
             : 0;
@@ -19,7 +19,7 @@ export function Progress(
 
                 <div
                     class="progress-fill"
-                    style="width: ${percentage}%"
+                    style="width: ${percent}%"
                 ></div>
 
             </div>
